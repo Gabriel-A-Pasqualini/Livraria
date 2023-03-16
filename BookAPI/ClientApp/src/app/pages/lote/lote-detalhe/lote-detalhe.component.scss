@@ -1,0 +1,67 @@
+
+      [nz-form] {
+        max-width: 800px;
+      }
+
+
+      nz-date-picker ::ng-deep .ant-calendar-picker {
+        width: 100%;
+      }
+
+      nz-date-picker,
+      nz-time-picker {
+        width: 100%;
+      }
+      nz-page-header {
+        border: 1px solid rgb(235, 237, 240);
+        margin: -23px -23px 0px -23px;
+      }
+      .content {
+        display: flex;
+      }
+      .extra > div {
+        display: flex;
+        width: max-content;
+        justify-content: flex-end;
+      }
+      @media (max-width: 576px) {
+        .content {
+          display: block;
+        }
+
+        .main {
+          width: 100%;
+          margin-bottom: 5px;
+        }
+
+        .extra {
+          width: 100%;
+          margin-left: 0;
+          text-align: left;
+
+        }
+      }
+      .ticket-detail {
+
+        [nz-col]:nth-child(1) {
+          padding-top: 15px;
+        }
+        [nz-col]:nth-child(2) {
+          padding-left: 15px;
+        }
+      }
+      .extra {
+        * {
+          margin-left: 8px;
+        }
+      }
+        .main {
+          max-width: 600px;
+        }
+
+        nz-list nz-list-item {
+            font-weight: bold;
+            &.red {
+                color: #ff4466 !important;
+            }
+        }

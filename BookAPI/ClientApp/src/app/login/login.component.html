@@ -1,0 +1,29 @@
+<div class="initial-screen">
+  <div class="form-holder">
+  <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+
+    <nz-form-item>
+      <img class="logo" src="assets/mesweb.png" alt="logo">
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Informe o usuário!">
+        <nz-input-group nzPrefixIcon="user">
+          <input type="text" nz-input  formControlName="userName" oninput="this.value = this.value.toUpperCase()" placeholder="Usuário" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Informe a senha!">
+          <nz-input-group nzPrefixIcon="lock">
+            <input type="password" nz-input formControlName="password" placeholder="Senha" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button class="login-form-button" [nzLoading]="logging" [nzType]="'primary'">Login</button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+</div>

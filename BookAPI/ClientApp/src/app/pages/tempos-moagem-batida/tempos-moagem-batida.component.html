@@ -1,0 +1,44 @@
+<nz-page-header nzBackIcon nzTitle="Tempos de Moagem por Batida" style="padding:15px 25px">
+    <nz-page-header-content>
+  
+      <form nz-form  style="width: 800px;">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="2" nzFor="numLote">Lote</nz-form-label>
+          <nz-form-control [nzSpan]="4">
+            <input nz-input name="numLote" [(ngModel)]="numLote" type="text" id="numLote">
+          </nz-form-control>
+          <nz-form-control [nzSpan]="4">
+            <button nzType="primary" nz-button (click)="consultarTemposMoagemBatida()"><i nz-icon nzType="search"></i>Pesquisar</button>
+          </nz-form-control>
+          <nz-form-control [nzSpan]="4">
+            <button  nzType="primary" nz-button style="background-color: green;border-color: green;"
+                (click)="imprimeExcel()"><i nz-icon style="color: rgb(255, 255, 255);" nzType="file-excel" [nzSpin]="isGerandoExcel"></i></button>
+          </nz-form-control>
+        </nz-form-item >
+  
+      </form>
+    </nz-page-header-content>
+  </nz-page-header>
+  
+    <nz-card nzTitle="Tempos de Moagem por Batida" style="width: 76vw; margin: 0 20px;" [nzBodyStyle]="{padding: '0'}">
+      <nz-table #docsTable [nzData]="temposMoagemBatida" [nzLoading]="isLoading" [nzFrontPagination]="false" nzBordered
+        [nzShowPagination]="false" nzSize="small" >
+        <thead>
+          <tr>
+            <th scope="col" nzWidth="160px">Batida</th>
+            <th scope="col" nzWidth="160px">Lote PA</th>
+            <th scope="col" nzWidth="160px">Produto</th>
+            <th scope="col" nzWidth="160px">Tempo Moinho</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let moagemBatida of temposMoagemBatida">
+            <td nzAlign="right">{{moagemBatida.num_batida | number}}</td>
+            <td nzAlign="right">{{moagemBatida.lote_prod}}</td>
+            <td nzAlign="right">{{moagemBatida.den_item_reduz}}</td>
+            <td nzAlign="right">{{moagemBatida.tempo_moinho | number}}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
+  

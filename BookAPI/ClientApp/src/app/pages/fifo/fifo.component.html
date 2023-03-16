@@ -1,0 +1,88 @@
+<nz-page-header nzBackIcon nzTitle="Consulta de FIFO" style="padding:15px 25px">
+  <nz-page-header-content>
+    <form nz-form>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="2" nzFor="numLote">Item</nz-form-label>
+        <nz-form-control [nzSpan]="6">
+          <input nz-input name="codItem" [(ngModel)]="codItem" type="text" id="codItem">
+        </nz-form-control>
+        <nz-form-control [nzSpan]="4">
+          <button nzType="primary" nz-button (click)="consultarFifos()"><i nz-icon
+              nzType="search"></i>Pesquisar</button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </nz-page-header-content>
+</nz-page-header>
+<div nz-row style="padding: 0 25px; width: 800px;">
+  <div nz-col nzSpan="12">
+    <nz-card nzTitle="Silos" [nzBodyStyle]="{padding: '0'}">
+      <nz-table  #docsTable [nzData]="fifosSilo" [nzLoading]="isLoadingSilo"
+        [nzFrontPagination]="false" #fixedTable nzBordered [nzShowPagination]="false" nzSize="small">
+        <thead>
+          <tr>
+            <th nzAlign="center">Silo</th>
+            <th nzAlign="center">Lote</th>
+            <th nzAlign="center">Saldo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let fifoSilo of fifosSilo"  [ngClass]="{'active' : numLote == fifoSilo.lote}">
+            <td nzAlign="left">{{fifoSilo.silo}}</td>
+            <td nzAlign="left">{{fifoSilo.lote}}</td>
+            <td nzAlign="right">{{fifoSilo.saldo | number}}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
+  </div>
+  <div nz-col nzSpan="12" style="padding: 0 10px;">
+    <nz-card nzTitle="Armazém" [nzBodyStyle]="{padding: '0'}">
+      <nz-table #fixedTable #docsTable [nzData]="fifosArmazem" [nzLoading]="isLoadingArmazem"
+        [nzFrontPagination]="false" nzBordered [nzShowPagination]="false" nzSize="small">
+        <thead>
+          <tr>
+            <th nzAlign="center">Lote</th>
+            <th nzAlign="center">Saldo</th>
+            <th nzAlign="center">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let fifoArmazem of fifosArmazem" (click)="consultarFifoEndereco(fifoArmazem.lote)">
+            <td nzAlign="left">{{fifoArmazem.lote}}</td>
+            <td nzAlign="right">{{fifoArmazem.saldo | number}}</td>
+            <td nzAlign="left">{{fifoArmazem.status}}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
+  </div>
+</div>
+
+<div nz-row style="padding: 25px 25px;">
+  <nz-card nzTitle="Endereços"  [nzBodyStyle]="{padding: '0'}">
+    <nz-table style="display: inline-block;width: 740px;" #docsTable [nzData]="enderecos" [nzLoading]="isLoadingEndereco"
+      [nzFrontPagination]="false" nzBordered [nzShowPagination]="false" nzSize="small" >
+      <thead>
+        <tr>
+          <th nzAlign="center" nzWidth="130px" *ngFor="let endereco of enderecos; let i = index">
+            {{enderecos[i].local_estoque}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td nzAlign="center" *ngFor="let endereco of enderecos; let i = index">{{enderecos[i].rua}}</td>
+        </tr>
+        <tr>
+          <td nzAlign="center" *ngFor="let endereco of enderecos; let i = index">{{enderecos[i].baia}}</td>
+        </tr>
+        <tr>
+          <td nzAlign="center" *ngFor="let endereco of enderecos; let i = index">{{enderecos[i].quantidade | number}}
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-card>
+</div>
+
+<router-outlet></router-outlet>

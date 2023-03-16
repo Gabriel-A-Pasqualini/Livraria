@@ -1,0 +1,77 @@
+<nz-page-header nzBackIcon nzTitle="Kardex" style="padding:15px 25px">
+  <nz-page-header-content>
+
+    <form nz-form  style="width: 800px;">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="2" nzFor="numLote">Lote</nz-form-label>
+        <nz-form-control [nzSpan]="4">
+          <input nz-input name="numLote" [(ngModel)]="numLote" type="text" id="numLote">
+        </nz-form-control>
+        <nz-form-control [nzSpan]="4">
+          <button nzType="primary" nz-button (click)="consultarKardexAnalitic()"><i nz-icon nzType="search"></i>Pesquisar</button>
+        </nz-form-control>
+        <nz-form-control [nzSpan]="2">
+          <button  nzType="primary" nz-button style="background-color: green;border-color: green;"
+              (click)="imprimeExcel()">
+              <i nz-icon style="color: rgb(255, 255, 255);" nzType="file-excel" [nzSpin]="isGerandoExcel"></i>
+            </button>
+        </nz-form-control>
+        <nz-form-control [nzSpan]="4">
+          <button  nzType="primary" nz-button
+              (click)="showModal()">
+              <i nz-icon nzType="edit"></i>
+              Ajuste Manual
+            </button>
+        </nz-form-control>
+      </nz-form-item >
+    </form>
+  </nz-page-header-content>
+</nz-page-header>
+
+  <nz-card nzTitle="Kardex Analitico Item: {{kardexAnalitic[0]?.cod_item}} - Descrição: {{kardexAnalitic[0]?.den_item}}" style="width: 77vw; margin: 0 20px;" [nzBodyStyle]="{padding: '0'}">
+    <nz-table #fixedTable [nzData]="kardexAnalitic" [nzLoading]="isLoading" [nzFrontPagination]="false" style="width: 100%;" nzBordered
+      [nzShowPagination]="false" nzSize="small" >
+      <thead>
+        <tr>
+          <th scope="col" nzWidth="70px">Data Hora</th>
+          <th scope="col" nzWidth="50px">Qtd.Movto</th>
+          <th scope="col" nzWidth="50px">Qtd.Saldo</th>
+          <th scope="col" nzWidth="350px">Obs</th>
+        </tr>
+      </thead>
+      <tbody >
+        <tr *ngFor="let kardex of kardexAnalitic">
+          <td>{{kardex.dat_hor| date: 'dd/MM/yyyy HH:mm'}}</td>
+          <td class="nowrap" nzAlign="right">{{kardex.qtd_movto| number}}</td>
+          <td class="nowrap" nzAlign="right">{{kardex.qtd_saldo | number}}</td>
+          <td class="txt nowrap">{{kardex.obs }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-card>
+
+  <nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Ajuste Manual de saldo"
+  nzOkText="Ok"
+  nzCancelText="Cancel"
+  (nzOnOk)="handleOk()"
+  (nzOnCancel)="handleCancel()"
+>
+    <form class="modal-form" nz-form >
+      <nz-form-item>
+        <nz-form-label [nzSm]="24" [nzXs]="24"  nzFor="lote" style="text-align: left;">Lote:</nz-form-label>
+        <nz-form-control [nzSm]="16" [nzXs]="24" >
+          <input nz-input name="lote" [(ngModel)]="ModalAjusteManualViewModel.lote" type="text" id="lote">
+        </nz-form-control>
+        <nz-form-label [nzSm]="24" [nzXs]="24"  nzFor="qtd_movto"  style="text-align: left;">Qtd.Movto:</nz-form-label>
+        <nz-form-control [nzSm]="16" [nzXs]="24" >
+          <input nz-input name="qtd_movto" [(ngModel)]="ModalAjusteManualViewModel.qtd_movto" type="number" id="qtd_movto">
+        </nz-form-control>
+        <nz-form-label [nzSm]="24" [nzXs]="24"  nzFor="descricao"  style="text-align: left;">Descrição:</nz-form-label>
+        <nz-form-control [nzSm]="16" [nzXs]="24" >
+          <input nz-input name="descricao" [(ngModel)]="ModalAjusteManualViewModel.descricao" type="text" id="descricao">
+        </nz-form-control>
+      </nz-form-item >
+    </form>
+</nz-modal>

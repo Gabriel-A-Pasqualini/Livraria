@@ -1,0 +1,29 @@
+.login-form {
+    width: 300px;
+    height: 250px;
+  }
+
+  .login-form-forgot {
+    float: right;
+  }
+
+  .login-form-button {
+    width: 100%;
+  }
+
+  .initial-screen{
+    text-align: center;
+
+      height:100vh;
+      line-height:100vh !important;
+    .form-holder{
+      text-align: left;
+      display: inline-block;
+    }
+    .logo{
+      margin-left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+

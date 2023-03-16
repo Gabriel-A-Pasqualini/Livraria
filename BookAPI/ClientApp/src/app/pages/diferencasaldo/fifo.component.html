@@ -1,0 +1,92 @@
+<nz-page-header nzBackIcon [nzTitle]="numLote" style="padding:15px 25px">
+  <nz-page-header-extra>
+    <button nz-button nzType="primary" (click)="mostrarDetalhes()">Detalhes</button>
+  </nz-page-header-extra>
+  <nz-page-header-content>
+  </nz-page-header-content>
+</nz-page-header>
+
+<nz-layout style="padding: 0 25px">
+  <nz-card nzTitle="Lote" style="width: 800px;" [nzBodyStyle]="{padding: '0'}">
+    <nz-skeleton [nzLoading]="isLoading" [nzParagraph]="{ rows: 3 }">
+      <div class="content">
+        <div class="main">
+          <nz-descriptions nzBordered nzSize="small" [nzColumn]="3">
+            <nz-descriptions-item nzTitle="Codigo" [nzSpan]="1">{{lote?.item}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Item" [nzSpan]="1">{{lote?.DescItem}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Saldo em Silos" [nzSpan]="1">{{lote?.SaldoSilo | number}}
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Tipo Lote" [nzSpan]="1">{{lote?.DescTipoLote}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Status do Lote" [nzSpan]="1">{{lote?.StLote}}</nz-descriptions-item>
+          </nz-descriptions>
+        </div>
+      </div>
+    </nz-skeleton>
+  </nz-card>
+  <br>
+  <nz-card  [hidden]="!mostraPrd" nzTitle="Produção" style="width: 800px;" [nzBodyStyle]="{padding: '0'}">
+    <nz-skeleton [nzLoading]="isLoadingProducao" [nzParagraph]="{ rows: 3 }">
+      <div class="content">
+        <div class="main">
+          <nz-descriptions nzBordered nzSize="small" [nzColumn]="2">
+            <nz-descriptions-item nzTitle="Data Início" [nzSpan]="1">{{producao?.datainicio | date: 'dd/MM/yyyy HH:mm:ss'}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Data Fim" [nzSpan]="1">{{producao?.data_fim | date: 'dd/MM/yyyy HH:mm:ss'}}
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Qtd. Planej." [nzSpan]="1">{{producao?.qtd_planejada | number}}
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Qtd. Descarte" [nzSpan]="1">{{producao?.qtd_descarte | number}}
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Qtd. Boas" [nzSpan]="1">{{producao?.qtd_boas | number}}
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Qtd. Reprocesso" [nzSpan]="1">{{producao?.qtd_reprocesso | number}}
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Qtd. Boas" [nzSpan]="1">{{producao?.batidas | number}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Tamanho Batch" [nzSpan]="1">{{producao?.tam_batch | number}}
+            </nz-descriptions-item>
+          </nz-descriptions>
+        </div>
+      </div>
+    </nz-skeleton>
+  </nz-card>
+  <br>
+
+  <nz-card nzTitle="Lote" style="width: 800px;" [nzBodyStyle]="{padding: '0'}">
+    <nz-table #docsTable [nzData]="historico" [nzLoading]="isLoadingHistorico" [nzFrontPagination]="false" nzBordered
+      [nzShowPagination]="false" nzSize="small" [nzScroll]="{ x: '500px' }">
+      <thead>
+        <tr>
+          <th nzWidth="160px">Data</th>
+          <th nzWidth="160px">Evento</th>
+          <th nzWidth="100px">Qtde.</th>
+          <th nzWidth="100px">Orig.</th>
+          <th nzWidth="100px">Dest</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let evento of historico">
+        <tr>
+          <td nzEllipsis class="txt"><span class="pre">{{evento.txt_data}}</span></td>
+          <td>{{evento.evento}}</td>
+          <td nzAlign="right">{{evento.quantidade | number}}</td>
+          <td>{{evento.origem}}</td>
+          <td>{{evento.destino}}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-card>
+<br>
+  <nz-card nzTitle="FIFO" style="width: 800px; overflow-x: auto" [nzBodyStyle]="{padding: '0'}">
+    <nz-table style="display: inline-block" #docsTable [nzData]="fifos" [nzLoading]="isLoadingFifo"
+      [nzFrontPagination]="false" nzBordered [nzShowPagination]="false" nzSize="small">
+      <thead>
+        <tr>
+          <th nzAlign="center" nzWidth="130px" *ngFor="let fifo of fifos; let i = index">{{fifos[i].lote}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td nzAlign="right" *ngFor="let fifo of fifos; let i = index">{{fifos[i].saldo | number}}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-card>
+  <router-outlet></router-outlet>

@@ -1,0 +1,73 @@
+<nz-layout class="app-layout">
+  <nz-sider nzTheme="light" class="menu-sidebar"
+            nzCollapsible
+            nzWidth="273px" *ngIf="isLoggedIn$ | async"
+            nzBreakpoint="md"
+            [(nzCollapsed)]="isCollapsed"
+            [nzTrigger]="null">
+    <div class="sidebar-logo">
+      <img src="assets/mesweb.png" alt="logo" height="60" width="60">
+    </div>
+      <div><nz-avatar
+         class="cod-empresa"
+          [nzText]="(loggedUser | async)?.EmpresaAtual?.CodEmpresa"
+          [nzShape]="'square'"
+          style="vertical-align: middle;"
+        ></nz-avatar>
+        <span style="text-align: center;font-size: 10px;">{{(loggedUser | async)?.Nome}}</span>
+      </div>
+    <ul nz-menu nzTheme="light" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-submenu nzOpen nzTitle="Portal" nzIcon="home">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/lote">Consulta de Lote</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/fifo">Consulta de FIFO</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/lote-prd">Consulta de Lotes PRD</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/diferenca-saldo">Diferença de Saldo</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/kardex">Kardex</a>
+          </li>
+          <li nz-submenu nzTitle="Relatórios Produção">
+            <ul>
+              <li nz-menu-item nzMatchRouter>
+                <a routerLink="/tempos-dosagem">Tempos de Dosagem</a>
+              </li>
+              <li nz-menu-item nzMatchRouter>
+                <a routerLink="/tempos-moagem-batida">Tempos de Moagem por Batida</a>
+              </li>
+              <li nz-menu-item nzMatchRouter>
+                <a routerLink="/tempos-mistura">Tempos de Mistura</a>
+              </li>
+            </ul>
+          </li>  
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout style="max-width: 100%;">
+    <nz-header *ngIf="isLoggedIn$ | async">
+      <div nz-row>
+        <div nz-col [nzSpan]="18">
+          <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+            <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+          </span>
+        </div>
+        <div nz-col [nzSpan]="6" class="sair">
+          <button nz-button (click)="sair()" nzType="danger">Sair</button>
+        </div>
+      </div>
+    </nz-header>
+    <nz-content [class]="'app-nav-layout'">
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

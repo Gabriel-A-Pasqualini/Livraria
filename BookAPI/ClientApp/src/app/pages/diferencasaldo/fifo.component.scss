@@ -1,0 +1,18 @@
+
+
+.bolinha :nth-child(2) {
+  width: 18px !important;
+  height: 18px !important;
+}
+.txt {
+  white-space: pre !important;
+}
+
+.fila-table tr:nth-child(odd) {
+  td {
+    background-color: #f8f8f8
+  };
+  &:hover td{
+    background-color: #f3f3f3 !important;
+  }
+}

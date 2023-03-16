@@ -2,10 +2,12 @@
 using AutoMapper;
 using BookAPI.Data;
 using BookAPI.Data.Dtos;
+using BookAPI.Interfaces;
 using BookAPI.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using trouwnutrition.mes.api.service;
 
 namespace BookAPI.Controllers;
 
@@ -16,6 +18,7 @@ public class LivroController : Controller
 
     private LivroContext _context;
     private IMapper _mapper;
+    private readonly LoteService service;
 
     public LivroController(LivroContext context)
     {
@@ -94,5 +97,12 @@ public class LivroController : Controller
         _context.SaveChanges();
         return NoContent();
 
+    }
+
+    [HttpGet, Route("producao")]
+    public IResponseBag<FrmLoteProducao> FrmLoteProducao(string lote = "")
+    {
+        var lista = service.ObterInfoProducaoLote(lote);
+        return bag.Fill(lista);
     }
 }

@@ -1,0 +1,20 @@
+<nz-modal nzWidth="480" [nzStyle]="{ top: '10px' }" [(nzVisible)]="isVisible" nzTitle="" [nzFooter]="null" (nzOnCancel)="handleCancel()">
+  <nz-page-header nzBackIcon [nzTitle]="numLote" nzSubtitle="Detalhes do Lote"></nz-page-header>
+
+    <nz-list nzBordered nzSize="small">
+      <nz-list-item><span nz-typography>Saldo M3 (+)</span>{{detalhe?.qtd_saldo_estoq_lote_c1 | number}}</nz-list-item>
+      <nz-list-item class="red"><span nz-typography>Quantidade Reservada M3 (-)</span>{{detalhe?.qtd_saldo_est_loc_reser_c2 | number}}</nz-list-item>
+      <nz-list-item class="red"><span nz-typography>Transferências SUP (-)</span>{{detalhe?.qtd_ajus_orig_c3 | number}}</nz-list-item>
+      <nz-list-item><span nz-typography>Transferências SUP (+)</span>{{detalhe?.qtd_ajus_dest_c4 | number}}</nz-list-item>
+      <nz-list-item class="red"><span nz-typography>Balança Avulsa (-)</span>{{detalhe?.real_c5 | number}}</nz-list-item>
+      <nz-list-item><span nz-typography>Ajuste SUP (+)</span>{{detalhe?.qtd_ajus_c6 | number}}</nz-list-item>
+      <nz-list-item class="red"><span nz-typography>Ajuste SUP (-)</span>{{detalhe?.qtd_ajus_c7 | number}}</nz-list-item>
+      <nz-list-item class="red"><span nz-typography>Silo (-)</span>{{detalhe?.quantidade_c8 | number}}</nz-list-item>
+      <nz-list-item class="red"><span nz-typography>Utilizado na Produção (Não apontado MES) (-)</span>{{detalhe?.qtdereal_c9 | number}}</nz-list-item>
+      <nz-list-item class="red"><span nz-typography>Utilizado na Produção (Apontado MES) (-)</span>{{detalhe?.qtd_consumida_c10 | number}}</nz-list-item>
+      <nz-list-item class="red"><span nz-typography>Quantidade em carregamento (-)</span>{{detalhe?.qtdecarregada | number}}</nz-list-item>
+      <nz-list-item class="red"><span nz-typography>Quantidade Reservada MES (-)</span>{{detalhe?.qtd_reservada_c12 | number}}</nz-list-item>
+      <nz-list-item><span nz-typography>TOTAL</span>{{detalhe?.total | number}}</nz-list-item>
+    </nz-list>
+ 
+</nz-modal> 

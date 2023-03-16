@@ -1,0 +1,63 @@
+<nz-page-header nzBackIcon nzTitle="Diferença de Saldo" style="padding:15px 25px">
+  <nz-page-header-content>
+
+    <form nz-form  style="width: 800px;">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="2" nzFor="numLote">Item</nz-form-label>
+        <nz-form-control [nzSpan]="4">
+          <input nz-input name="codItem" [(ngModel)]="codItem" type="text" id="codItem">
+        </nz-form-control>
+        <nz-form-label [nzSpan]="2" nzFor="numLote">Lote</nz-form-label>
+        <nz-form-control [nzSpan]="4">
+          <input nz-input name="numLote" [(ngModel)]="numLote" type="text" id="numLote">
+        </nz-form-control>
+        <nz-form-control [nzSpan]="4">
+          <button nzType="primary" nz-button (click)="consultarDiferencaSaldo()"><i nz-icon nzType="search"></i>Pesquisar</button>
+        </nz-form-control>
+        <nz-form-control [nzSpan]="4">
+          <button  nzType="primary" nz-button style="background-color: green;border-color: green;"
+              (click)="imprimeExcel()"><i nz-icon style="color: rgb(255, 255, 255);" nzType="file-excel" [nzSpin]="isGerandoExcel"></i></button>
+        </nz-form-control>
+      </nz-form-item >
+
+    </form>
+  </nz-page-header-content>
+</nz-page-header>
+
+  <nz-card nzTitle="Diferenças de Saldo" style="width: 76vw; margin: 0 20px;" [nzBodyStyle]="{padding: '0'}">
+    <nz-table #docsTable [nzData]="diferencasSaldo" [nzLoading]="isLoading" [nzFrontPagination]="false" nzBordered
+      [nzShowPagination]="false" nzSize="small" >
+      <thead>
+        <tr>
+          <th scope="col" nzWidth="160px">Item</th>
+          <th scope="col" nzWidth="160px">lote</th>
+          <th scope="col" nzWidth="100px">Saldo MES</th>
+          <th scope="col" nzWidth="100px">Saldo ERP</th>
+          <th scope="col" nzWidth="100px">Diferença</th>
+          <th scope="col" nzWidth="100px">MesEnder</th>
+          <th scope="col" nzWidth="100px">MesConsumo</th>
+          <th scope="col" nzWidth="100px">MesBalAvulsa</th>
+          <th scope="col" nzWidth="100px">MesSilos</th>
+          <th scope="col" nzWidth="100px">ERPLib</th>
+          <th scope="col" nzWidth="100px">ERPBloq</th>
+          <th scope="col" nzWidth="100px">ERPImp</th>
+        </tr>
+      </thead>
+      <tbody >
+        <tr *ngFor="let diferenca of diferencasSaldo">
+          <td nzEllipsis class="txt"><span class="pre">{{diferenca.Item}}</span></td>
+          <td>{{diferenca.lote}}</td>
+          <td nzAlign="right">{{diferenca.saldo_mes | number}}</td>
+          <td nzAlign="right">{{diferenca.saldo_estoque_lote_ender | number}}</td>
+          <td nzAlign="right">{{diferenca.diferenca | number}}</td>
+          <td nzAlign="right">{{diferenca.qtd_mes_ender | number}}</td>
+          <td nzAlign="right">{{diferenca.qtd_mes_consumo | number}}</td>
+          <td nzAlign="right">{{diferenca.qtd_mes_bal_avulsa | number}}</td>
+          <td nzAlign="right">{{diferenca.qtd_mes_silos | number}}</td>
+          <td nzAlign="right">{{diferenca.l_qtd_erp_lib | number}}</td>
+          <td nzAlign="right">{{diferenca.l_qtd_erp_bloq | number}}</td>
+          <td nzAlign="right">{{diferenca.l_qtd_erp_imp | number}}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-card>

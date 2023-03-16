@@ -1,0 +1,57 @@
+<nz-modal nzWidth="880" [nzStyle]="{ top: '10px' }" [nzVisible]="lotePrd != null" nzTitle="" [nzFooter]="null"
+  (nzOnCancel)="handleCancel()">
+  <nz-page-header nzBackIcon nzTitle="Ajuste de Lote PRD"></nz-page-header>
+  <nz-descriptions nzBordered nzSize="small" [nzColumn]="2">
+    <nz-descriptions-item nzTitle="OP" [nzSpan]="1">{{lotePrd?.ordem}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Lote Ordem" [nzSpan]="1">{{lotePrd?.lote_producao}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Batida" [nzSpan]="1">{{lotePrd?.num_batida}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Componente" [nzSpan]="1">{{lotePrd?.item}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Lote Componente" [nzSpan]="1">{{lotePrd?.lote_prd}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Qtd. Real" [nzSpan]="1">{{lotePrd?.qtdereal | number}}</nz-descriptions-item>
+  </nz-descriptions>
+<br>
+  <form nz-form>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="3" nzFor="loteReal">Lote Real</nz-form-label>
+      <nz-form-control [nzSpan]="7">
+        <input nz-input name="loteReal" [(ngModel)]="loteReal" type="text" id="loteReal">
+      </nz-form-control>
+
+      <nz-form-label [nzSpan]="3" nzFor="loteReal">Silo</nz-form-label>
+      <nz-form-control [nzSpan]="6">
+        <input nz-input name="uaReal" [(ngModel)]="uaReal" type="text" id="uaReal">
+      </nz-form-control>
+   <br>
+      <nz-form-label [nzSpan]="4" nzFor="loteReal">Qtde. Real</nz-form-label>
+      <nz-form-control [nzSpan]="6">
+        <input nz-input name="qtdeReal" [(ngModel)]="qtdeReal" type="number" id="qtdReal">
+      </nz-form-control>
+
+      <nz-form-control [nzSpan]="4">
+        <button nzType="primary" nz-button (click)="efetuarAjusteLotePrd()"><i nz-icon
+            nzType="flag"></i>Ajustar</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+
+  <br>
+
+  <nz-table nzTitle="Clique em um lote para preencher os campos acima" [nzScroll]="{y: 400}" #docsTable
+  [nzData]="fifosSilo" [nzLoading]="isLoadingSilo" [nzFrontPagination]="false" nzBordered [nzShowPagination]="false"
+  nzSize="small">
+  <thead>
+    <tr>
+      <th nzAlign="center">Silo</th>
+      <th nzAlign="center">Lote</th>
+      <th nzAlign="center">Saldo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let fifoSilo of fifosSilo" (click)="preencherCampos(fifoSilo)">
+      <td nzAlign="left">{{fifoSilo.silo}}</td>
+      <td nzAlign="left">{{fifoSilo.lote}}</td>
+      <td nzAlign="right">{{fifoSilo.saldo | number}}</td>
+    </tr>
+  </tbody>
+</nz-table>
+</nz-modal>
